@@ -1,46 +1,98 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node {
+// Struktur node untuk linked list
+typedef struct Node
+{
     int data;
-    struct Node* next;
+    struct Node *next;
 } Node;
 
-// Fungsi untuk membuat node baru
-Node* createNode(int data) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    newNode->data = data;
-    newNode->next = NULL;
-    return newNode;
+// Struktur list yang menyimpan pointer ke head dan tail
+typedef struct LinkedList
+{
+    Node *head;
+    Node *tail;
+} LinkedList;
+
+// Inisialisasi linked list
+void initList(LinkedList *list)
+{
+    list->head = NULL;
+    list->tail = NULL;
 }
 
-// Fungsi untuk mencetak linked list
-void display(Node* head) {
-    Node* current = head;
-    while (current) {
+// Menambahkan node baru di akhir (tail) list dalam O(1)
+void append(LinkedList *list, int value)
+{
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    if (!newNode)
+    {
+        printf("Gagal mengalokasikan memori!\n");
+        exit(1);
+    }
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (list->head == NULL)
+    {
+        // List kosong, head dan tail menunjuk ke node baru
+        list->head = newNode;
+        list->tail = newNode;
+    }
+    else
+    {
+        // Tambah ke tail, lalu perbarui tail
+        list->tail->next = newNode;
+        list->tail = newNode;
+    }
+}
+
+// Mencetak semua elemen dalam linked list
+void printList(const LinkedList *list)
+{
+    Node *current = list->head;
+    printf("Isi Linked List: ");
+    while (current != NULL)
+    {
         printf("%d ", current->data);
         current = current->next;
     }
+    printf("\n");
 }
 
-int main() {
-    int T, data;
-    scanf("%d", &T);
+// Membebaskan semua node dari memori
+void freeList(LinkedList *list)
+{
+    Node *current = list->head;
+    while (current != NULL)
+    {
+        Node *temp = current;
+        current = current->next;
+        free(temp);
+    }
+    list->head = NULL;
+    list->tail = NULL;
+}
 
-    Node *head = NULL, *tail = NULL;
+int main()
+{
+    LinkedList list;
+    initList(&list);
 
-    while (T-- > 0) {
-        scanf("%d", &data);
-        Node* newNode = createNode(data);
+    int n, value;
+    printf("Masukkan jumlah elemen: ");
+    scanf("%d", &n);
 
-        if (head == NULL) {
-            head = tail = newNode;  // List kosong
-        } else {
-            tail->next = newNode;   // Tambahkan langsung ke akhir
-            tail = newNode;
-        }
+    for (int i = 0; i < n; ++i)
+    {
+        printf("Masukkan angka ke-%d: ", i + 1);
+        scanf("%d", &value);
+        append(&list, value);
     }
 
-    display(head);
+    printList(&list);
+    freeList(&list);
+
     return 0;
 }
