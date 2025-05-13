@@ -3,7 +3,7 @@
 **Nama:** Muhammad Zaky Syahfadil Asshidiq  
 **NIM:** D121241068  
 **Problem Link:** [Linked List: Day 15: Linked List - HackerRank](https://www.hackerrank.com/challenges/30-linked-list/problem)  
-**Difficulty:** Easys  
+**Difficulty:** Easy  
 
 ## Short Approach Summary
 **1. Tujuan:**  
