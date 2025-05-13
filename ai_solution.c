@@ -8,26 +8,26 @@ typedef struct Node
 
 Node* insert(Node *head,int data)
 {
+     // Buat node baru
     Node* newNode = (Node*)malloc(sizeof(Node));
     newNode->data = data;
     newNode->next = NULL;
 
-    // Jika list kosong, node baru menjadi head
+    // Jika linked list kosong, jadikan node ini sebagai head
     if (head == NULL) {
         return newNode;
     }
 
-    // Jika list tidak kosong, cari node terakhir
-    Node* current = head;
-    while (current->next != NULL) {
-        current = current->next;
+    // Traversal ke akhir list
+    Node* temp = head;
+    while (temp->next != NULL) {
+        temp = temp->next;
     }
 
     // Tambahkan node baru di akhir
-    current->next = newNode;
+    temp->next = newNode;
 
-    // Kembalikan head awal
-    return head;
+    return head; // Kembalikan head lama karena tidak berubah
 }
 
 void display(Node *head)
@@ -51,3 +51,4 @@ int main()
   display(head);
 		
 }
+
