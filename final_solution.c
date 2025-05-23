@@ -1,90 +1,57 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node
+// Definisi struktur node
+struct Node
 {
     int data;
     struct Node *next;
-} Node;
-
-typedef struct LinkedList
-{
-    Node *head;
-    Node *tail;
-} LinkedList;
-
-void initList(LinkedList *list)
-{
-    list->head = NULL;
-    list->tail = NULL;
-}
-
-void append(LinkedList *list, int value)
-{
-    Node *newNode = (Node *)malloc(sizeof(Node));
-    if (!newNode)
-    {
-        printf("Gagal mengalokasikan memori!\n");
-        exit(1);
-    }
-    newNode->data = value;
-    newNode->next = NULL;
-
-    if (list->head == NULL)
-    {
-        list->head = newNode;
-        list->tail = newNode;
-    }
-    else
-    {
-        list->tail->next = newNode;
-        list->tail = newNode;
-    }
-}
-
-void printList(const LinkedList *list)
-{
-    Node *current = list->head;
-    printf("Isi Linked List: ");
-    while (current != NULL)
-    {
-        printf("%d ", current->data);
-        current = current->next;
-    }
-    printf("\n");
-}
-
-void freeList(LinkedList *list)
-{
-    Node *current = list->head;
-    while (current != NULL)
-    {
-        Node *temp = current;
-        current = current->next;
-        free(temp);
-    }
-    list->head = NULL;
-    list->tail = NULL;
-}
+};
 
 int main()
 {
-    LinkedList list;
-    initList(&list);
-
-    int n, value;
-    printf("Masukkan jumlah elemen: ");
+    int n;
     scanf("%d", &n);
 
-    for (int i = 0; i < n; ++i)
+    // Jika n == 0, tidak ada node yang perlu dibuat atau dicetak
+    if (n == 0)
     {
-        printf("Masukkan angka ke-%d: ", i + 1);
-        scanf("%d", &value);
-        append(&list, value);
+        return 0;
     }
 
-    printList(&list);
-    freeList(&list);
+    // Inisialisasi head dan pointer sementara
+    struct Node *head = NULL;
+    struct Node *temp = NULL;
+
+    for (int i = 0; i < n; i++)
+    {
+        // Alokasi node baru
+        struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+        scanf("%d", &newNode->data);
+        newNode->next = NULL;
+
+        if (head == NULL)
+        {
+            // Jika ini node pertama, set head ke newNode
+            head = newNode;
+        }
+        else
+        {
+            // Sambungkan node baru ke list
+            temp->next = newNode;
+        }
+
+        // Update temp ke node terakhir
+        temp = newNode;
+    }
+
+    // Traversal dan cetak setiap node
+    struct Node *current = head;
+    while (current != NULL)
+    {
+        printf("%d\n", current->data);
+        current = current->next;
+    }
 
     return 0;
 }
