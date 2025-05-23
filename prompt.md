@@ -1,2 +1,8 @@
 ## Prompt yang Diberikan pada ChatGPT  
-Buatkan saya program dalam bahasa C yang menggunakan linked list untuk menyimpan beberapa angka dari input. Setiap angka harus ditambahkan ke akhir dari linked list. Gunakan fungsi insert() untuk menambahkan node baru ke akhir list, dengan cara menelusuri (traverse) dari head ke node terakhir setiap kali ada data baru. Sertakan juga fungsi display() untuk mencetak semua elemen linked list setelah semua data dimasukkan.
+Saya memiliki soal tentang linked list. Soalnya adalah sebagai berikut:
+Diberikan sebuah pointer ke node pertama dari linked list. Tugasnya adalah mencetak nilai data dari setiap node, satu per baris. Jika pointer tersebut adalah NULL, maka tidak mencetak apa-apa.
+Format inputnya:
+* Baris pertama berisi angka n, yaitu banyaknya elemen pada linked list
+* Baris berikutnya sebanyak n baris, masing-masing berisi data untuk node tersebut.
+
+Buatkan saya solusi dalam bahasa C. Jangan pakai fungsi tambahan jika tidak perlu. Jawaban harus mencetak setiap elemen linked list satu per baris sesuai urutan.
