@@ -1,54 +1,58 @@
+#include <stdio.h>
 #include <stdlib.h>
-#include <stdio.h>	
-typedef struct Node
-{
-    int data;
-    struct Node* next;
-}Node;
 
-Node* insert(Node *head,int data)
-{
-     // Buat node baru
-    Node* newNode = (Node*)malloc(sizeof(Node));
+// Definisi struktur node
+struct SinglyLinkedListNode {
+    int data;
+    struct SinglyLinkedListNode* next;
+};
+
+// Fungsi untuk mencetak semua node
+void printLinkedList(struct SinglyLinkedListNode* head) {
+    struct SinglyLinkedListNode* current = head;
+    while (current != NULL) {
+        printf("%d\n", current->data);
+        current = current->next;
+    }
+}
+
+// Fungsi pembantu untuk membuat node baru
+struct SinglyLinkedListNode* createNode(int data) {
+    struct SinglyLinkedListNode* newNode = (struct SinglyLinkedListNode*)malloc(sizeof(struct SinglyLinkedListNode));
     newNode->data = data;
     newNode->next = NULL;
-
-    // Jika linked list kosong, jadikan node ini sebagai head
-    if (head == NULL) {
-        return newNode;
-    }
-
-    // Traversal ke akhir list
-    Node* temp = head;
-    while (temp->next != NULL) {
-        temp = temp->next;
-    }
-
-    // Tambahkan node baru di akhir
-    temp->next = newNode;
-
-    return head; // Kembalikan head lama karena tidak berubah
+    return newNode;
 }
 
-void display(Node *head)
-{
-	Node *start=head;
-	while(start)
-	{
-		printf("%d ",start->data);
-		start=start->next;
-	}
-}
-int main()
-{
-	int T,data;
-    scanf("%d",&T);
-    Node *head=NULL;	
-    while(T-->0){
-        scanf("%d",&data);
-        head=insert(head,data);
-    }
-  display(head);
-		
-}
+// Fungsi utama (main)
+int main() {
+    int n, value;
+    scanf("%d", &n);
 
+    struct SinglyLinkedListNode* head = NULL;
+    struct SinglyLinkedListNode* tail = NULL;
+
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &value);
+        struct SinglyLinkedListNode* newNode = createNode(value);
+        if (head == NULL) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+
+    printLinkedList(head);
+
+    // Bebaskan memori
+    struct SinglyLinkedListNode* current = head;
+    while (current != NULL) {
+        struct SinglyLinkedListNode* temp = current;
+        current = current->next;
+        free(temp);
+    }
+
+    return 0;
+}
